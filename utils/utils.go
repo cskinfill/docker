@@ -644,6 +644,7 @@ func (jm *JSONMessage) Display(out io.Writer) error {
 		}
 		return jm.Error
 	}
+	fmt.Fprintf(out, "%c[2K\r", 27)
 	if jm.Time != 0 {
 		fmt.Fprintf(out, "[%s] ", time.Unix(jm.Time, 0))
 	}
@@ -651,7 +652,6 @@ func (jm *JSONMessage) Display(out io.Writer) error {
 		fmt.Fprintf(out, "%s: ", jm.ID)
 	}
 	if jm.Progress != "" {
-		fmt.Fprintf(out, "%c[2K", 27)
 		fmt.Fprintf(out, "%s %s\r", jm.Status, jm.Progress)
 	} else {
 		fmt.Fprintf(out, "%s\r\n", jm.Status)
